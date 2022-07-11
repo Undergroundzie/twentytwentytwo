@@ -146,4 +146,356 @@ body > .is-root-container > .wp-block-template-part > .wp-block-cover,
 	padding-right: var(--wp--custom--spacing--outer);
 	padding-left: var(--wp--custom--spacing--outer);
 }
+body {
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+}
 
+/*
+ * Text and navigation link styles.
+ * Necessary until the following issue is resolved in Gutenberg:
+ * https://github.com/WordPress/gutenberg/issues/27075
+ */
+
+a {
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.25ch;
+}
+
+a:hover,
+a:focus {
+	text-decoration-style: dashed;
+}
+
+a:active {
+	text-decoration: none;
+}
+
+.wp-block-navigation .wp-block-navigation-item a:hover,
+.wp-block-navigation .wp-block-navigation-item a:focus {
+	text-decoration: underline;
+	text-decoration-style: solid;
+}
+
+/*
+ * Search and File Block button styles.
+ * Necessary until the following issues are resolved in Gutenberg:
+ * https://github.com/WordPress/gutenberg/issues/36444
+ * https://github.com/WordPress/gutenberg/issues/27760
+ */
+
+.wp-block-search__button,
+.wp-block-file .wp-block-file__button {
+	background-color: var(--wp--preset--color--primary);
+	border-radius: 0;
+	border: none;
+	color: var(--wp--preset--color--background);
+	font-size: var(--wp--preset--font-size--medium);
+	padding: calc(.667em + 2px) calc(1.333em + 2px);
+}
+
+/*
+ * Button hover styles.
+ * Necessary until the following issue is resolved in Gutenberg:
+ * https://github.com/WordPress/gutenberg/issues/27075
+ */
+
+.wp-block-search__button:hover,
+.wp-block-file .wp-block-file__button:hover,
+.wp-block-button__link:hover {
+	opacity: 0.90;
+}
+
+/*
+ * Alignment styles.
+ * These rules are temporary, and should not be relied on or
+ * modified too heavily by themes or plugins that build on
+ * Twenty Twenty-Two. These are meant to be a precursor to
+ * a global solution provided by the Block Editor.
+ *
+ * Relevant issues:
+ * https://github.com/WordPress/gutenberg/issues/35607
+ * https://github.com/WordPress/gutenberg/issues/35884
+ */
+
+.wp-site-blocks,
+body > .is-root-container,
+.edit-post-visual-editor__post-title-wrapper,
+.wp-block-group.alignfull,
+.wp-block-group.has-background,
+.wp-block-cover.alignfull,
+.is-root-container .wp-block[data-align="full"] > .wp-block-group,
+.is-root-container .wp-block[data-align="full"] > .wp-block-cover {
+	padding-left: var(--wp--custom--spacing--outer);
+	padding-right: var(--wp--custom--spacing--outer);
+}
+
+.wp-site-blocks .alignfull,
+.wp-site-blocks > .wp-block-group.has-background,
+.wp-site-blocks > .wp-block-cover,
+.wp-site-blocks > .wp-block-template-part > .wp-block-group.has-background,
+.wp-site-blocks > .wp-block-template-part > .wp-block-cover,
+body > .is-root-container > .wp-block-cover,
+body > .is-root-container > .wp-block-template-part > .wp-block-group.has-background,
+body > .is-root-container > .wp-block-template-part > .wp-block-cover,
+.is-root-container .wp-block[data-align="full"] {
+	margin-left: calc(-1 * var(--wp--custom--spacing--outer)) !important;
+	margin-right: calc(-1 * var(--wp--custom--spacing--outer)) !important;
+	width: unset;
+}
+
+/* Blocks inside columns don't have negative margins. */
+.wp-site-blocks .wp-block-columns .wp-block-column .alignfull,
+.is-root-container .wp-block-columns .wp-block-column .wp-block[data-align="full"],
+/* We also want to avoid stacking negative margins. */
+.wp-site-blocks .alignfull:not(.wp-block-group) .alignfull,
+.is-root-container .wp-block[data-align="full"] > *:not(.wp-block-group) .wp-block[data-align="full"] {
+	margin-left: auto !important;
+	margin-right: auto !important;
+	width: inherit;
+}
+
+header {
+	color: white;
+	background-color: #142D5D;
+  width: 100%;
+}
+.navigation {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.navigation > li {
+  margin: 0 1rem;
+  overflow: hidden;
+}
+.navigation-button-container {
+  display: none;
+  height: 100%;
+  width: 30px;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#navigation-toggle {
+  display: none;
+}
+
+.navigation-button,
+.navigation-button::before,
+.navigation-button::after {
+  display: block;
+  background-color: #fff;
+  position: absolute;
+  height: 4px;
+  width: 30px;
+  transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1);
+  border-radius: 2px;
+}
+
+.navigation-button::before {
+  content: '';
+  margin-top: -8px;
+}
+
+.navigation-button::after {
+  content: '';
+  margin-top: 8px;
+}
+
+#navigation-toggle:checked + .navigation-button-container .navigation-button::before {
+  margin-top: 0px;
+  transform: rotate(405deg);
+}
+
+#navigation-toggle:checked + .navigation-button-container .navigation-button {
+  background: rgba(255, 255, 255, 0);
+}
+
+#navigation-toggle:checked + .navigation-button-container .navigation-button::after {
+  margin-top: 0px;
+  transform: rotate(-405deg);
+}
+
+@media (max-width: 700px) {
+  .navigation-button-container {
+    display: flex;
+  }
+  .navigation {
+    position: absolute;
+    top: 0;
+    margin-top: 50px;
+    left: 0;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  #navigation-toggle ~ .navigation li {
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  #navigation-toggle:checked ~ .navigation li {
+    border: 1px solid #333;
+    height: 2.5em;
+    padding: 0.5em;
+    transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .navigation > li {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0.5em 0;
+    width: 100%;
+    color: white;
+    background-color: #222;
+  }
+  .navigation > li:not(:last-child) {
+    border-bottom: 1px solid #444;
+  }
+}
+
+/*
+ * Responsive menu container padding.
+ * This ensures the responsive container inherits the same
+ * spacing defined above. This behavior may be built into
+ * the Block Editor in the future.
+ */
+
+.navigation-button__responsive-container.is-menu-open {
+	padding-top: var(--wp--custom--spacing--outer);
+	padding-bottom: var(--wp--custom--spacing--large);
+	padding-right: var(--wp--custom--spacing--outer);
+	padding-left: var(--wp--custom--spacing--outer);
+}
+
+/*Launch page customization*/
+
+body {
+  background-color: #A9C4FF;
+}
+
+/* trying to remove pinche page titles */
+
+h1:wp-block-post-title {
+	display: none;
+}
+
+.navigation-lines {
+	 color: white;
+	 text-align: right;
+	 justify-items: center;
+	 float: right;
+	 padding-top: 33px;
+}
+
+.wrapper {
+	 float: center;
+	 width: 100%;
+}
+
+.pyramid {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+.zone1 { 
+	clip-path: polygon(50% 0%, 30% 100%, 70% 100%);
+	background: #FF1616;
+	color: white;
+	background-blend-mode: lighten;
+	transition background-color: 0.5s;	 
+}
+
+.zone1:hover {
+	background-color: white;
+	color: black;
+	box-shadow: 1px 1px black;
+}
+
+.zone2 {
+	clip-path: polygon(30% 0%, 70% 0%, 76% 100%, 24% 100%);
+	width: 100%;
+	height: 100%;
+	background: #FF914D;
+	color: white;
+	background-blend-mode: lighten;
+	transition: background-color: 0.5s;
+}
+
+.zone2:hover {
+	background-color: white;
+	color: black;
+}
+
+.zone3 {
+	clip-path: polygon(21% 0%, 79% 0%, 85% 100%, 15% 100%);
+	width: 100%;
+	background: #FFBD59; 
+	color: white;
+	background-blend-mode: lighten;
+	transition background-color: 0.5s;
+}
+
+.zone3:hover {
+	background-color: white;
+	color: black;
+}
+
+.zone4 {
+	clip-path: polygon(15% 0%, 85% 0%, 91% 100%, 9% 100%);
+	width: 100%;
+	background: #F0CD00;
+	color: white;
+	background-blend-mode: lighten;
+	transition background-color: 0.5s;
+}
+
+.zone4:hover {
+	background-color: white;
+	color: black;
+}
+
+.zone5 {
+	clip-path: polygon(6% 0%, 94% 0%, 100% 100%, 0% 100%);
+	background: #142D5D;
+	color: white;
+	background-blend-mode: lighten;
+	transition background-color: 0.5s;
+}
+
+.zone5:hover {
+	background-color: white;
+	color: black;
+}
+
+@font-face {
+	font-family: 'Material Icons';
+	font-style: normal;
+	font-weight: 600;
+	src: url(https://fonts.gstatic.com/s/materialicons/v130/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
+}
+
+.material-icons {
+	font-family: 'Material Icons';
+	font-weight: normal;
+	font-style: normal;
+	font-size: 33px;
+	line-height: 1;
+	letter-spacing: normal;
+	text-transform: none;
+	display: inline-block;
+	white-space: nowrap;
+	word-wrap: normal;
+	direction: ltr;
+	-webkit-font-feature-settings: 'liga';
+	-webkit-font-smoothing: antialiased;
+}
